@@ -1,10 +1,22 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom"
+import Card from "../components/Card"
+import { Box, Button } from "@chakra-ui/react"
 
-const GetOTP = () => {
+const GetOTP = ({ nextURL }) => {
+    const navigate = useNavigate()
     return (
-        <div>
-            get otp 
-        </div>
+        <Card headingText={'Get OTP'}>
+            <Box>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, dolores.
+            </Box>
+            <Button 
+                m={'20px'} 
+                colorScheme={'teal'} 
+                onClick={() => navigate(nextURL)}
+            >   
+                Next
+            </Button>
+        </Card>
     )
 }
 

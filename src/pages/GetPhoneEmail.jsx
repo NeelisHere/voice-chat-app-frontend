@@ -1,10 +1,22 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom"
+import Card from "../components/Card"
+import { Box, Button } from "@chakra-ui/react"
 
-const GetPhoneEmail = () => {
+const GetPhoneEmail = ({ nextURL }) => {
+    const navigate = useNavigate()
     return (
-        <div>
-            get phone email 
-        </div>
+        <Card headingText={'get phone email'}>
+            <Box>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, dolores.
+            </Box>
+            <Button 
+                m={'20px'} 
+                colorScheme={'teal'} 
+                onClick={() => navigate(nextURL)}
+            >   
+                Next
+            </Button>
+        </Card>
     )
 }
 

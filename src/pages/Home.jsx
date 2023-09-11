@@ -24,7 +24,7 @@ const Home = () => {
                         and feel, not just in our design specs, but in production.
                     </Box>
                     <Button
-                        onClick={() => navigate('/register')}
+                        onClick={() => navigate('/get-phone-email')}
                         m={'20px'}
                         colorScheme={'teal'}
                     >
@@ -36,7 +36,7 @@ const Home = () => {
                             style={hover ? { textDecoration: 'underline' } : {}}
                             onMouseEnter={() => setHover(true)}
                             onMouseLeave={() => setHover(false)}
-                            to={'/login'}
+                            to={'/get-phone-email'}
                         >
                             Login
                         </Link>
