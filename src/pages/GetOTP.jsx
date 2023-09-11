@@ -1,14 +1,29 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import Card from "../components/Card"
-import { Box, Button } from "@chakra-ui/react"
+import { Box, Button,Input, InputGroup, Text } from "@chakra-ui/react"
+import { useState } from "react"
 
 const GetOTP = ({ nextURL }) => {
+    const [hover, setHover] = useState(false)
     const navigate = useNavigate()
     return (
-        <Card headingText={'Get OTP'}>
+        <Card headingText={'Enter the OTP'}>
             <Box>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, dolores.
+                <InputGroup mt={'20px'}>
+                    <Input placeholder='Enter the OTP-Code sent to your mobile/email' />
+                </InputGroup>
             </Box>
+            <Text fontSize={'sm'} mt={'10px'}>
+                {`Did't receive? `}
+                <Link
+                    style={hover ? { textDecoration: 'underline' } : {}}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    to={'/get-phone-email'}
+                >
+                    Resend OTP
+                </Link>
+            </Text>
             <Button 
                 m={'20px'} 
                 colorScheme={'teal'} 
@@ -16,6 +31,7 @@ const GetOTP = ({ nextURL }) => {
             >   
                 Next
             </Button>
+            <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.</Text>
         </Card>
     )
 }

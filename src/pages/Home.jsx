@@ -11,8 +11,8 @@ const Home = () => {
     return (
         <>
             <Box 
-                // border={'2px solid red'}
-                height={'90vh'}
+                border={'2px solid red'}
+                height={'70vh'}
                 display={'flex'}
                 alignItems={'center'}
             >

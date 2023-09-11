@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SemiProtectedRoute from './pages/SemiProtectedRoute';
 import ProtectedRoute from './pages/ProtectedRoute';
-import GuestRoute from './pages/GuestRoute';
+// import GuestRoute from './pages/GuestRoute';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
 // import Register from './pages/Register';
@@ -13,7 +13,6 @@ import store from "./store.js";
 import { Provider } from "react-redux";
 import GetPhoneEmail from './pages/GetPhoneEmail'
 import GetOTP from './pages/GetOTP'
-import SetActualName from './pages/SetActualName'
 import SetAvatar from './pages/SetAvatar'
 import SetUsername from './pages/SetUsername'
 
@@ -28,35 +27,21 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/get-otp",
-		element: <GetOTP nextURL={'/set-actual-name'} />,
+		element: <GetOTP nextURL={'/set-username'} />,
 	},
 	{
-		path: "/set-actual-name",
+		path: "/set-username",
 		element: 
 			<SemiProtectedRoute>
-				<SetActualName nextURL={'/set-avatar'} />
+				<SetUsername nextURL={'/set-avatar'} />
 			</SemiProtectedRoute>
 	},
 	{
 		path: "/set-avatar",
 		element: 
 			<SemiProtectedRoute>
-				<SetAvatar nextURL={'/set-username'} />
+				<SetAvatar nextURL={'/'} />
 			</SemiProtectedRoute>
-	},
-	{
-		path: "/set-username",
-		element: 
-			<SemiProtectedRoute>
-				<SetUsername nextURL={'/'} />
-			</SemiProtectedRoute>
-	},
-	{
-		path: "/set-username",
-		element: 
-			<ProtectedRoute>
-				<Rooms />
-			</ProtectedRoute>
 	},
 	// {
 	// 	path: "/register",
