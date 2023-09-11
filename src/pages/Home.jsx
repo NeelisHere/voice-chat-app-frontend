@@ -28,17 +28,17 @@ const Home = () => {
                         m={'20px'}
                         colorScheme={'teal'}
                     >
-                        Get Username
+                        Register
                     </Button>
                     <Text>
-                        {'Have an invite text? '}
+                        {'Already have an account? '}
                         <Link
                             style={hover ? { textDecoration: 'underline' } : {}}
                             onMouseEnter={() => setHover(true)}
                             onMouseLeave={() => setHover(false)}
-                            to={'/register'}
+                            to={'/login'}
                         >
-                            Register
+                            Login
                         </Link>
                     </Text>
                 </Card>
