@@ -12,7 +12,7 @@ const Home = () => {
         <>
             <Box 
                 border={'2px solid red'}
-                height={'70vh'}
+                height={'80vh'}
                 display={'flex'}
                 alignItems={'center'}
             >
