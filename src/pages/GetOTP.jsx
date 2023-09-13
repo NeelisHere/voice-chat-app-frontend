@@ -1,15 +1,48 @@
 import { useNavigate, Link } from "react-router-dom"
 import Card from "../components/Card"
 import { Box, Button, Input, InputGroup, Text } from "@chakra-ui/react"
-import { useState } from "react"
+import Navigation from "../components/Navigation"
+import { verifyOTP } from "../api-calls/index.js"
+import { useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setAuth } from "../slices/AuthSlice"
+import toast from "react-hot-toast"
 
 const GetOTP = ({ nextURL }) => {
-    const [hover, setHover] = useState(false)
+    const { email, expires, hash } = useSelector((state) => state.auth.OTP)
+    const { user } = useSelector((state) => state.auth)
+    const dispatch = useDispatch()
+    const ref = useRef()
     const navigate = useNavigate()
+    const [hover, setHover] = useState(false)
+    const [loading, setLoading] = useState(false) 
+
+    const handleVerify = async () => {
+        setLoading(true)
+        try {
+            const { data } = await verifyOTP({ email, OTP: ref.current.value, hash, expires })
+            // console.log(1, data)
+            dispatch(setAuth(data))
+
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        } finally {
+            setLoading(false)
+            console.log(user)
+            // if (user.activated) {
+            //     navigate('/rooms')
+            // } else {
+            //     navigate(nextURL)
+            // }
+        }
+    }
+
     return (
         <>
+            <Navigation />
             <Box
-                border={'2px solid red'}
+                // border={'2px solid red'}
                 height={'80vh'}
                 display={'flex'}
                 alignItems={'center'}
@@ -17,7 +50,7 @@ const GetOTP = ({ nextURL }) => {
                 <Card headingText={'Enter the OTP'}>
                     <Box>
                         <InputGroup mt={'20px'}>
-                            <Input placeholder='Enter the OTP-Code sent to your mobile/email' />
+                            <Input ref={ref} placeholder='Enter the OTP-Code sent to your email' />
                         </InputGroup>
                     </Box>
                     <Text fontSize={'sm'} mt={'10px'}>
@@ -34,9 +67,10 @@ const GetOTP = ({ nextURL }) => {
                     <Button
                         m={'20px'}
                         colorScheme={'teal'}
-                        onClick={() => navigate(nextURL)}
+                        onClick={handleVerify}
+                        isLoading={loading}
                     >
-                        Next
+                        Verify
                     </Button>
                     <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.</Text>
                 </Card>

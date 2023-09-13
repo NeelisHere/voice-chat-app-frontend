@@ -12,4 +12,8 @@ export const sendOTP = async (data) => {
     return await api.post('/api/send-otp', data)
 }
 
+export const verifyOTP = async (data) => {
+    return await api.post('/api/verify-otp', data)
+}
+
 export default api

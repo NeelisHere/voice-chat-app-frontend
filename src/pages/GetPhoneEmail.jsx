@@ -5,8 +5,8 @@ import { Box, Button, Text, Input, InputGroup, } from '@chakra-ui/react'
 import Navigation from "../components/Navigation"
 import { sendOTP } from "../api-calls/index.js"
 import { useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setAuth, setOTP } from "../slices/AuthSlice"
+import { useDispatch } from "react-redux"
+import { setOTP } from "../slices/AuthSlice"
 
 
 const GetPhoneEmail = ({ nextURL }) => {
