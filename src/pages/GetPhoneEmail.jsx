@@ -1,46 +1,65 @@
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 import Card from "../components/Card"
-import { Box, Button, Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/react'
-import Phone from "../components/Phone"
-import Email from "../components/Email"
+import { Box, Button, Text, Input, InputGroup, } from '@chakra-ui/react'
+import Navigation from "../components/Navigation"
+import { sendOTP } from "../api-calls/index.js"
+import { useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setAuth, setOTP } from "../slices/AuthSlice"
+
 
 const GetPhoneEmail = ({ nextURL }) => {
+    const [loading, setLoading] = useState(false) 
+    const dispatch = useDispatch()
+    const ref = useRef()
     const navigate = useNavigate()
+    const handleSubmit = async (e) => {
+        setLoading(true)
+        try {
+            const { data } = await sendOTP({ email: ref.current.value })
+            // console.log(1, data);
+            dispatch(setOTP(data))
+            toast.success('OTP sent to you email. Check inbox.')
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        } finally {
+            setLoading(false)
+            navigate(nextURL)
+        }
+    }
     return (
         <>
+            <Navigation />
             <Box
-                border={'2px solid red'}
+                // border={'2px solid red'}
                 height={'80vh'}
                 display={'flex'}
                 alignItems={'center'}
             >
                 <Card>
-                    <Box
-                    // border={'2px solid red'}
-                    >
-                        <Tabs variant={'soft-rounded'} colorScheme="gray" isFitted >
-                            <TabList>
-                                <Tab>Phone</Tab>
-                                <Tab>Email</Tab>
-                            </TabList>
-                            <TabPanels >
-                                <TabPanel>
-                                    <Phone />
-                                </TabPanel>
-                                <TabPanel>
-                                    <Email />
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs>
+                    <Box>
+                        <Text m={'10px 0'} fontSize={'xl'} fontWeight={'bold'}>Enter Email Address</Text>
+                        <InputGroup mt={'20px'}>
+                            <Input placeholder='Email' ref={ref} />
+                        </InputGroup>
                     </Box>
                     <Button
                         m={'20px'}
                         colorScheme={'teal'}
-                        onClick={() => navigate(nextURL)}
+                        isLoading={loading}
+                        onClick={handleSubmit}
                     >
-                        Next
+                        Submit
                     </Button>
-                    <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.</Text>
+                    <Text
+                        fontSize={'xs'}
+                        lineHeight={'shorter'}
+                        color={'#59515e'}
+                    >
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.
+                    </Text>
                 </Card>
             </Box>
         </>

@@ -4,14 +4,33 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     isLoggedIn: false,
-    isRegistered: true,
+    isRegistered: false,
+    user: null,
+    OTP: {
+        hash: '',
+        expires: '',
+        email: ''
+    }
 };
 
 export const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: { },
+    reducers: {
+        setAuth: (state, action) => {
+
+        },
+        setOTP: (state, action) => {
+            // console.log(2, action.payload)
+            const { hash, expires, email } = action.payload
+            state.OTP.email = email
+            state.OTP.hash = hash
+            state.OTP.expires = expires
+        },
+    },
 });
+
+export const { setAuth, setOTP } = authSlice.actions;
 
 // export const authApi = createApi({
 //     reducerPath: 'authApi',
@@ -25,4 +44,3 @@ export const authSlice = createSlice({
   
 //   export const { useGetAlbumsQuery } = jsonServerApi;
 
-// export const { addTodo, deleteTodo } = todoSlice.actions;

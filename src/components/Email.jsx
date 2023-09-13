@@ -1,4 +1,4 @@
-import { Box, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react'
+import { Box, Input, InputGroup, Text } from '@chakra-ui/react'
 
 const Email = () => {
     return (

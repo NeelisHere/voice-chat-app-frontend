@@ -2,10 +2,10 @@ import './App.css';
 import { ChakraProvider } from '@chakra-ui/react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SemiProtectedRoute from './pages/SemiProtectedRoute';
-import ProtectedRoute from './pages/ProtectedRoute';
+// import ProtectedRoute from './pages/ProtectedRoute';
 // import GuestRoute from './pages/GuestRoute';
 import Home from './pages/Home';
-import Rooms from './pages/Rooms';
+// import Rooms from './pages/Rooms';
 // import Register from './pages/Register';
 // import Navigation from './components/Navigation';
 // import Login from './pages/Login'
@@ -15,6 +15,7 @@ import GetPhoneEmail from './pages/GetPhoneEmail'
 import GetOTP from './pages/GetOTP'
 import SetAvatar from './pages/SetAvatar'
 import SetUsername from './pages/SetUsername'
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
 	{
@@ -59,6 +60,7 @@ const App = () => {
 			<Provider store={store}>
 				{/* <Navigation /> */}
 				<RouterProvider router={router} />
+				<Toaster />
 			</Provider>
 			
 		</ChakraProvider>
