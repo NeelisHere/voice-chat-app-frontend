@@ -8,6 +8,7 @@ import { setAvatar } from '../slices/activateSlice.js'
 import { useState } from "react";
 import { activate } from "../api-calls/index.js";
 import toast from "react-hot-toast";
+import { setAuth } from "../slices/AuthSlice";
 
 // const defaultImage = 'https://bit.ly/broken-link'
 
@@ -32,7 +33,10 @@ const SetAvatar = ({ nextURL }) => {
         setLoading(true)
         try {
             const { data } = await activate({ username, avatar })
-            console.log(data)
+            // console.log(data)
+            if(data.auth) {
+                dispatch(setAuth(data))
+            }
             navigate(nextURL)
         } catch (error) {
             console.log(error)

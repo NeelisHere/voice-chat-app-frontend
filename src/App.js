@@ -1,9 +1,9 @@
 import './App.css';
 import { ChakraProvider } from '@chakra-ui/react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SemiProtectedRoute from './pages/SemiProtectedRoute';
-// import ProtectedRoute from './pages/ProtectedRoute';
-// import GuestRoute from './pages/GuestRoute';
+import SemiProtectedRoute from './components/routeProtectors/SemiProtectedRoute.jsx';
+import ProtectedRoute from './components/routeProtectors/ProtectedRoute';
+import GuestRoute from './components/routeProtectors/GuestRoute';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
 // import Register from './pages/Register';
@@ -19,16 +19,25 @@ import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
 	{
-	  path: "/",
-	  element: <Home />,
+		path: "/",
+		element: 
+			<GuestRoute>
+				<Home />
+			</GuestRoute>,
 	},
 	{
 		path: "/get-phone-email",
-		element: <GetPhoneEmail nextURL={'/get-otp'} />,
+		element: 
+			<GuestRoute>
+				<GetPhoneEmail nextURL={'/get-otp'} />
+			</GuestRoute>,
 	},
 	{
 		path: "/get-otp",
-		element: <GetOTP nextURL={'/set-username'} />,
+		element: 
+			<GuestRoute>
+				<GetOTP nextURL={'/set-username'} />
+			</GuestRoute>,
 	},
 	{
 		path: "/set-username",
@@ -47,9 +56,9 @@ const router = createBrowserRouter([
 	{
 		path: "/rooms",
 		element: 
-			// <SemiProtectedRoute>
+			<ProtectedRoute>
 				<Rooms />
-			// </SemiProtectedRoute>
+			</ProtectedRoute>
 	}
 	// {
 	// 	path: "/register",
