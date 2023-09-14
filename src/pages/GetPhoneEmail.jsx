@@ -21,12 +21,12 @@ const GetPhoneEmail = ({ nextURL }) => {
             // console.log(1, data);
             dispatch(setOTP(data))
             toast.success('OTP sent to you email. Check inbox.')
+            navigate(nextURL)
         } catch (error) {
             console.log(error)
             toast.error(error.message)
         } finally {
             setLoading(false)
-            navigate(nextURL)
         }
     }
     return (

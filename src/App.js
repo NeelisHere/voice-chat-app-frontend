@@ -41,7 +41,7 @@ const router = createBrowserRouter([
 		path: "/set-avatar",
 		element: 
 			<SemiProtectedRoute>
-				<SetAvatar nextURL={'/'} />
+				<SetAvatar nextURL={'/rooms'} />
 			</SemiProtectedRoute>
 	},
 	{

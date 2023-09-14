@@ -17,4 +17,8 @@ export const verifyOTP = async (data) => {
     return await api.post('/api/verify-otp', data)
 }
 
+export const activate = async (data) => {
+    return await api.post('/api/activate', data)
+}
+
 export default api
