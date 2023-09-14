@@ -5,7 +5,7 @@ import SemiProtectedRoute from './pages/SemiProtectedRoute';
 // import ProtectedRoute from './pages/ProtectedRoute';
 // import GuestRoute from './pages/GuestRoute';
 import Home from './pages/Home';
-// import Rooms from './pages/Rooms';
+import Rooms from './pages/Rooms';
 // import Register from './pages/Register';
 // import Navigation from './components/Navigation';
 // import Login from './pages/Login'
@@ -44,6 +44,13 @@ const router = createBrowserRouter([
 				<SetAvatar nextURL={'/'} />
 			</SemiProtectedRoute>
 	},
+	{
+		path: "/rooms",
+		element: 
+			// <SemiProtectedRoute>
+				<Rooms />
+			// </SemiProtectedRoute>
+	}
 	// {
 	// 	path: "/register",
 	// 	element: <Register />,

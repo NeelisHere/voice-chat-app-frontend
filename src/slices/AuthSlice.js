@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    isLoggedIn: false,
+    isAuth: false,
     isRegistered: false,
     user: null,
     OTP: {
@@ -20,7 +20,8 @@ export const authSlice = createSlice({
         setAuth: (state, action) => {
             const { user } = action.payload
             state.user = user
-            state.isLoggedIn = true
+            state.isAuth = true
+            state.isRegistered = user.activated? true: false
         },
         setOTP: (state, action) => {
             // console.log(2, action.payload)

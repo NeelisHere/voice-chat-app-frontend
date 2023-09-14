@@ -10,7 +10,7 @@ import toast from "react-hot-toast"
 
 const GetOTP = ({ nextURL }) => {
     const { email, expires, hash } = useSelector((state) => state.auth.OTP)
-    const { user } = useSelector((state) => state.auth)
+    // const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const ref = useRef()
     const navigate = useNavigate()
@@ -23,18 +23,14 @@ const GetOTP = ({ nextURL }) => {
             const { data } = await verifyOTP({ email, OTP: ref.current.value, hash, expires })
             // console.log(1, data)
             dispatch(setAuth(data))
-
+            toast.success('OTP verified successfully!')
         } catch (error) {
             console.log(error)
             toast.error(error.message)
         } finally {
             setLoading(false)
-            console.log(user)
-            // if (user.activated) {
-            //     navigate('/rooms')
-            // } else {
-            //     navigate(nextURL)
-            // }
+            // console.log(user)
+            navigate(nextURL)
         }
     }
 
@@ -72,7 +68,9 @@ const GetOTP = ({ nextURL }) => {
                     >
                         Verify
                     </Button>
-                    <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.</Text>
+                    <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}> 
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.
+                    </Text>
                 </Card>
             </Box>
         </>

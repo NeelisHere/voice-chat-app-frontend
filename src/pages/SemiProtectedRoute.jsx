@@ -1,17 +1,16 @@
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 // import Error from './Error.jsx'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const SemiProtectedRoute = ({ children }) => {
-    // const navigate = useNavigate()
-    // const { isRegistered, isLoggedIn } = useSelector((state) => state.auth)
+    const navigate = useNavigate()
+    const { isRegistered, isAuth } = useSelector((state) => state.auth)
     // console.log('->', isRegistered)
-    // if(isRegistered && !isLoggedIn) {
-    //     return( <> { children } </> )
-    // } else {
-    //     navigate('/')
-    // }
-    return <>{ children }</>
+    if(isRegistered && isAuth) {
+        navigate('/rooms')
+    } else if(!isRegistered && isAuth) {
+        return(<>{ children }</>)
+    }
 }
 
 export default SemiProtectedRoute
