@@ -6,13 +6,13 @@ import ProtectedRoute from './components/routeProtectors/ProtectedRoute';
 import GuestRoute from './components/routeProtectors/GuestRoute';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
-import store from "./store.js";
-import { Provider } from "react-redux";
 import GetPhoneEmail from './pages/GetPhoneEmail'
 import GetOTP from './pages/GetOTP'
 import SetAvatar from './pages/SetAvatar'
 import SetUsername from './pages/SetUsername'
 import { Toaster } from 'react-hot-toast';
+import useLoadingWithRefresh from './hooks/useLoadingWithRefresh';
+import Loader from './pages/Loader';
 
 const router = createBrowserRouter([
 	{
@@ -60,14 +60,19 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+	const { loading } = useLoadingWithRefresh()
+	// const loading = false;
 	return (
 		<ChakraProvider>
-			<Provider store={store}>
-				{/* <Navigation /> */}
-				<RouterProvider router={router} />
-				<Toaster />
-			</Provider>
-			
+			{
+				loading?
+				<Loader size={'xl'}/>
+				:
+				<>
+					<RouterProvider router={router} /> 
+					<Toaster />
+				</>
+			}
 		</ChakraProvider>
 	);
 }
