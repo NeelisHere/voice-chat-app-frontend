@@ -6,9 +6,6 @@ import ProtectedRoute from './components/routeProtectors/ProtectedRoute';
 import GuestRoute from './components/routeProtectors/GuestRoute';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
-// import Register from './pages/Register';
-// import Navigation from './components/Navigation';
-// import Login from './pages/Login'
 import store from "./store.js";
 import { Provider } from "react-redux";
 import GetPhoneEmail from './pages/GetPhoneEmail'
@@ -60,14 +57,6 @@ const router = createBrowserRouter([
 				<Rooms />
 			</ProtectedRoute>
 	}
-	// {
-	// 	path: "/register",
-	// 	element: <Register />,
-	// },
-	// {
-	// 	path: "/login",
-	// 	element: <Login />,
-	// },
 ]);
 
 const App = () => {
