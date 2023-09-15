@@ -1,10 +1,12 @@
-import React from 'react'
+import Navigation from "../components/Navigation"
+
 
 const Rooms = () => {
     return (
-        <div>
+        <> 
+            <Navigation />
             Rooms
-        </div>
+        </>
     )
 }
 

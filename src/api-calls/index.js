@@ -11,17 +11,14 @@ const api = axios.create({
     }
 })
 
-export const sendOTP = async (data) => {
-    return await api.post('/api/send-otp', data)
-}
+export const sendOTP = async (data) => api.post('/api/send-otp', data)
 
-export const verifyOTP = async (data) => {
-    return await api.post('/api/verify-otp', data)
-}
+export const verifyOTP = async (data) => api.post('/api/verify-otp', data)
 
-export const activate = async (data) => {
-    return await api.post('/api/activate', data)
-}
+export const activate = async (data) => api.post('/api/activate', data)
+
+export const logoutUser = async () => api.post('/api/logout')
+
 
 //interceptors
 api.interceptors.response.use(
@@ -30,18 +27,14 @@ api.interceptors.response.use(
     }, 
     async (err) => {
         const originalReq = err.config
-        // console.log('<1>', originalReq)
         if (err.response.status === 401 && originalReq && !originalReq._isRetry) {
             originalReq._isRetry = true
             try {
                 const refReqURL = `${API_BASE_URL}/api/refresh`
                 await axios.get(refReqURL, { withCredentials: true })
-                // console.log('<2> ***')
                 return api.request(originalReq)
-                // console.log('<3> ***')
 
             } catch (error) {
-                // console.log('<err>***')
                 console.log(error.message)
             }
         } else {
