@@ -1,34 +1,8 @@
 import { Box, Text, AvatarGroup, Avatar, Button } from '@chakra-ui/react'
-
-const room = {
-    id: 3,
-    topic: 'Which framework is the best for backend development?',
-    speakers: [
-        {
-            id: 1,
-            username: 'John Doe',
-            avatar: 'https://bit.ly/dan-abramov'
-        },
-        {
-            id: 2,
-            username: 'John Doe',
-            avatar: 'https://bit.ly/code-beast'
-        },
-        {
-            id: 3,
-            username: 'John Doe',
-            avatar: 'https://bit.ly/kent-c-dodds'
-        },
-        {
-            id: 4,
-            username: 'John Doe',
-            avatar: 'https://bit.ly/sage-adebayo'
-        }
-    ],
-    totalMembers: 4
-}
+import { useNavigate } from "react-router-dom"
 
 const RoomCard = ({ topic, speakers }) => {
+    const navigate = useNavigate()
     return (
         <Box
             // border={'2px solid blue'}
@@ -37,8 +11,12 @@ const RoomCard = ({ topic, speakers }) => {
             padding={'15px'}
             shadow={'base'}
             _hover={{
-                shadow: 'md'
+                shadow: 'lg'
             }}
+            onClick={()=>{
+                navigate('/rooms/roomId')
+            }}
+            cursor={'pointer'}
         >
             <Box
 

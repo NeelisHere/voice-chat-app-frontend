@@ -1,13 +1,23 @@
-import { Box, Button, Grid, SimpleGrid , InputGroup, InputLeftElement, Text, Input } from "@chakra-ui/react"
+import { Box, Grid, InputGroup, InputLeftElement, Text, Input } from "@chakra-ui/react"
 import { SearchIcon } from '@chakra-ui/icons'
 import Navigation from "../components/Navigation"
 import RoomCard from "../components/RoomCard"
-import { rooms } from "../data"
+import { getAllRooms } from "../api-calls"
 import CreateRoomModal from "../components/CreateRoomModal"
-
+import { useEffect, useState } from "react"
 
 
 const Rooms = () => {
+    const [rooms, setRooms] = useState([])
+
+    useEffect(() => {
+        const fetchRooms = async () => {
+            const { data } = await getAllRooms()
+            setRooms(data.rooms)
+        }
+        fetchRooms()
+    }, [])
+
     return (
         <>
             <Navigation />
@@ -59,7 +69,7 @@ const Rooms = () => {
                     </Box>
 
                     {/* Rooms list */}
-                    <SimpleGrid 
+                    <Grid 
                         templateColumns='repeat(4, 1fr)'
                         gridAutoRows={'max-content'}
                         gap={5}
@@ -85,7 +95,7 @@ const Rooms = () => {
                                 )
                             })
                         }
-                    </SimpleGrid>
+                    </Grid>
 
                 </Box>
             </Box>

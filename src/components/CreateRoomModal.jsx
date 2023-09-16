@@ -1,10 +1,12 @@
-import {Modal,ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useDisclosure, Box, Input,  Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import {Modal,ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useDisclosure, Input,  Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { createRoom as create } from '../api-calls/index.js'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const CreateRoomModal = () => {
+    const navigate = useNavigate()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [roomType, setRoomType] = useState('open')
     const [topic, setTopic] = useState('')
@@ -17,6 +19,8 @@ const CreateRoomModal = () => {
         try {
             const { data } = await create({ topic, roomType })
             console.log(data)
+            toast.success('Room created successfully!')
+            navigate(`/rooms/${data.room._id}`)
         } catch (error) {
             console.log(error)
             toast.error('Error creating room!')

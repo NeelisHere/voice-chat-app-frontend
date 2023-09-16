@@ -13,6 +13,7 @@ import SetUsername from './pages/SetUsername'
 import { Toaster } from 'react-hot-toast';
 import useLoadingWithRefresh from './hooks/useLoadingWithRefresh';
 import Loader from './pages/Loader';
+import Room from './pages/Room';
 
 const router = createBrowserRouter([
 	{
@@ -56,8 +57,16 @@ const router = createBrowserRouter([
 			<ProtectedRoute>
 				<Rooms />
 			</ProtectedRoute>
+	},
+	{
+		path: '/rooms/:id',
+		element: 
+			<ProtectedRoute>
+				<Room />
+			</ProtectedRoute>
 	}
 ]);
+
 
 const App = () => {
 	const { loading } = useLoadingWithRefresh()
