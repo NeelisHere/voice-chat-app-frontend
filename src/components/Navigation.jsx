@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom"
 import { Text, Box, Button } from "@chakra-ui/react"
 import { Image } from "@chakra-ui/react"
-import { logoutUser } from "../api-calls"
+import { logoutUser } from "../api-calls/index.js"
 import toast from "react-hot-toast"
-import { useDispatch } from "react-redux"
-import { setAuth } from "../slices/AuthSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { setAuth } from "../slices/AuthSlice.js"
 
 const Navigation = () => {
+    const { isAuth } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const logout = async () => {
         try {
             const { data } = await logoutUser()
+            console.log(data)
             dispatch(setAuth(data))
         } catch (error) {
             console.log(error)
@@ -50,14 +52,17 @@ const Navigation = () => {
                     <Text fontSize={'2xl'} fontWeight={'bold'}>Logo</Text>
                 </Box>
             </Link>
-            <Button 
-                marginRight={'20px'} 
-                colorScheme='red' 
-                size='sm'
-                onClick={logout}
-            >
-                Logout
-            </Button>
+            {
+                isAuth &&
+                <Button
+                    marginRight={'20px'}
+                    colorScheme='red'
+                    size='sm'
+                    onClick={logout}
+                >
+                    Logout
+                </Button>
+            }
         </Box>
     )
 }

@@ -7,17 +7,23 @@ import { sendOTP } from "../api-calls/index.js"
 import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { setOTP } from "../slices/AuthSlice"
+import { isEmailValid } from '../api-calls/services.js'
 
 
 const GetPhoneEmail = ({ nextURL }) => {
-    const [loading, setLoading] = useState(false) 
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const ref = useRef()
     const navigate = useNavigate()
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
+        const email = ref.current.value.trim()
+        if (isEmailValid(email)) {
+            toast.error('Email format invalid!')
+            return;
+        }
         setLoading(true)
         try {
-            const { data } = await sendOTP({ email: ref.current.value })
+            const { data } = await sendOTP({ email })
             // console.log(1, data);
             dispatch(setOTP(data))
             toast.success('OTP sent to you email. Check inbox.')

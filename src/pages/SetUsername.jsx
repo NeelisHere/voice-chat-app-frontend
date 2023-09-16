@@ -18,7 +18,7 @@ const SetUsername = ({ nextURL }) => {
     const handleSubmit = async () => {
         setLoading(true)
         try {
-            dispatch(setUsername(ref.current.value))
+            dispatch(setUsername(ref.current.value.trim()))
         } catch (error) {
             console.log(error)
             toast.error(error.message)

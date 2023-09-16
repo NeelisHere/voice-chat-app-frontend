@@ -24,7 +24,7 @@ export const logoutUser = async () => api.post('/api/logout')
 api.interceptors.response.use(
     (config) => {
         return config
-    }, 
+    },
     async (err) => {
         const originalReq = err.config
         if (err.response.status === 401 && originalReq && !originalReq._isRetry) {
@@ -40,7 +40,7 @@ api.interceptors.response.use(
         } else {
             throw err
         }
-    }   
+    }
 )
 
 export default api
