@@ -19,6 +19,8 @@ export const activate = async (data) => api.post('/api/activate', data)
 
 export const logoutUser = async () => api.post('/api/logout')
 
+export const createRoom = async (data) => api.post('/api/rooms', data)
+
 
 //interceptors
 api.interceptors.response.use(
