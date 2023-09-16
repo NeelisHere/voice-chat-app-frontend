@@ -5,6 +5,8 @@ import { logoutUser } from "../api-calls/index.js"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { setAuth } from "../slices/AuthSlice.js"
+import UserCard from "./UserCard.jsx"
+import { LogoutIcon } from './Icons'
 
 const Navigation = () => {
     const { isAuth } = useSelector((state) => state.auth)
@@ -54,14 +56,27 @@ const Navigation = () => {
             </Link>
             {
                 isAuth &&
-                <Button
-                    marginRight={'20px'}
-                    colorScheme='red'
-                    size='sm'
-                    onClick={logout}
+                <Box 
+                    // border={'2px solid red'}
+                    display={"flex"}
+                    alignItems={'center'}
+                    justifyContent={'center'}
                 >
-                    Logout
-                </Button>
+                    <Box mr={'20px'}>
+                        <UserCard type={'nav'} />
+                    </Box>
+                    <Button
+                        marginRight={'20px'}
+                        // colorScheme="red"
+                        p={'0'}
+                        colorScheme='white'
+                        variant={'ghost'}
+                        size='lg'
+                        onClick={logout}
+                    >
+                        <LogoutIcon />
+                    </Button>
+                </Box>
             }
         </Box>
     )

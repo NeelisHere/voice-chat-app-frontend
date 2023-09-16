@@ -17,7 +17,7 @@ const GetPhoneEmail = ({ nextURL }) => {
     const navigate = useNavigate()
     const handleSubmit = async () => {
         const email = ref.current.value.trim()
-        if (isEmailValid(email)) {
+        if (!isEmailValid(email)) {
             toast.error('Email format invalid!')
             return;
         }

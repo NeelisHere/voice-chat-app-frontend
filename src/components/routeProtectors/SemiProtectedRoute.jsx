@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom'
 const SemiProtectedRoute = ({ children }) => {
     // const navigate = useNavigate()
     const { user, isAuth } = useSelector((state) => state.auth)
-    if(user.activated && isAuth) {
+    if (isAuth && user && user.activated) {
         return <Navigate to={'/rooms'}/>
-    } else if(!user && isAuth) {
+    } else if (isAuth && user && !user.activated) {
         return children
     } else {
         return <Navigate to={'/'}/>

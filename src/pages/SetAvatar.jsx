@@ -5,7 +5,7 @@ import { CloseIcon } from "@chakra-ui/icons"
 import Navigation from '../components/Navigation';
 import { useDispatch, useSelector } from "react-redux"
 import { setAvatar } from '../slices/activateSlice.js'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { activate } from "../api-calls/index.js";
 import toast from "react-hot-toast";
 import { setAuth } from "../slices/AuthSlice";
@@ -18,6 +18,7 @@ const SetAvatar = ({ nextURL }) => {
     const navigate = useNavigate()
     const [avatarImageFile, setAvatarImageFile] = useState('')
     const [loading, setLoading] = useState(false)
+    const [mounted, setMounted] = useState(true)
 
     const previewAvatar = (e) => {
         e.preventDefault()
@@ -29,13 +30,21 @@ const SetAvatar = ({ nextURL }) => {
         }
     }
 
+    useEffect(() => {
+        return () => {
+            setMounted(false)
+        }
+    }, [])
+
     const handleSubmit = async () => {
         setLoading(true)
         try {
             const { data } = await activate({ username, avatar })
             // console.log(data)
             if(data.auth) {
-                dispatch(setAuth(data))
+                if (mounted) {
+                    dispatch(setAuth(data))
+                }
             }
             navigate(nextURL)
         } catch (error) {
