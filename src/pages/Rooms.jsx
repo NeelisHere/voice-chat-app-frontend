@@ -13,6 +13,7 @@ const Rooms = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             const { data } = await getAllRooms()
+            // console.log('<>', data)
             setRooms(data.rooms)
         }
         fetchRooms()
@@ -89,8 +90,7 @@ const Rooms = () => {
                                 return(
                                     <RoomCard 
                                         key={index}
-                                        topic={room.topic}
-                                        speakers={room.speakers}
+                                        room={room}
                                     />
                                 )
                             })

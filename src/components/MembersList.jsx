@@ -1,6 +1,8 @@
 import { Box, Grid, Text, Avatar } from "@chakra-ui/react"
 
-const MembersList = ({ title, members }) => {
+const MembersList = ({ title, members, provideRef }) => {
+    console.log('<>', members)
+
     return (
         <Box>
             <Text fontSize={'xl'} fontWeight={'semibold'} ml={'20px'}>
@@ -13,7 +15,7 @@ const MembersList = ({ title, members }) => {
                 my={'20px'}
             >
                 {
-                    members.map(({ username, avatar }, index) => {
+                    members.map(({ id, username, avatar }, index) => {
                         return (
                             <Box
                                 key={index}
@@ -23,7 +25,8 @@ const MembersList = ({ title, members }) => {
                                 gap={2}
                                 alignItems={'center'}
                                 justifyContent={'center'}
-                            >
+                            >   
+                                
                                 <Avatar
                                     size={'lg'}
                                     border={'4px solid #dedede'}
@@ -33,6 +36,13 @@ const MembersList = ({ title, members }) => {
                                 <Text fontSize={'sm'}>
                                     {username}
                                 </Text>
+                                <audio 
+                                    controls 
+                                    autoPlay
+                                    ref={(instance) => provideRef(instance, id)}
+                                >
+
+                                </audio>
                             </Box>
                         )
                     })

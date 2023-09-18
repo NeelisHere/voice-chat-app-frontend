@@ -1,7 +1,8 @@
 import { Box, Text, AvatarGroup, Avatar, Button } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
 
-const RoomCard = ({ topic, speakers }) => {
+const RoomCard = ({ room }) => {
+    const { topic, speakers, _id } = room
     const navigate = useNavigate()
     return (
         <Box
@@ -14,7 +15,7 @@ const RoomCard = ({ topic, speakers }) => {
                 shadow: 'lg'
             }}
             onClick={()=>{
-                navigate('/rooms/roomId')
+                navigate(`/rooms/${_id}`)
             }}
             cursor={'pointer'}
         >
@@ -37,7 +38,7 @@ const RoomCard = ({ topic, speakers }) => {
                                 <Avatar 
                                     key={index}
                                     name={username} 
-                                    src={avatar}
+                                    src={`${process.env.REACT_APP_API_BASE_URL}${avatar}`}
                                 />
                             )
                         })

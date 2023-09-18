@@ -4,12 +4,17 @@ import { ArrowBackIcon } from '@chakra-ui/icons'
 import Navigation from "../components/Navigation"
 import MembersList from "../components/MembersList"
 import { speakers, listeners } from "../data"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+// import { useState } from "react"
+import { useWebRTC } from "../hooks/useWebRTC"
+import { useSelector } from "react-redux"
 
 const Room = () => {
-
     const navigate = useNavigate()
-
+    const currentUser = useSelector((state) => state.auth.user)
+    const { id: roomId } = useParams()
+    const { clients, provideRef } = useWebRTC(roomId, currentUser)
+    console.log('<Room>', currentUser, clients)
     return (
         <>
             <Navigation />
@@ -56,6 +61,8 @@ const Room = () => {
                     {/* Chats */}
                     <Stack
                         // border={'2px solid red'}
+                        borderRadius={'10px'}
+
                         bg={'white'}
                         direction={'column'}
                         px={'20px'}
@@ -76,10 +83,27 @@ const Room = () => {
                         </Box>
                         
                         {/* speakers */}
-                        <MembersList title={'Speakers'} members={speakers} />
+                        {
+                            clients.map((client) => {
+                                return (
+                                    <audio 
+                                        controls 
+                                        autoPlay
+                                        ref={(instance) => provideRef(instance, client._id)}
+                                    >
+                                    </audio>
+                                )
+                            })
+                        }
+
+                        {/* <MembersList 
+                            title={'Speakers'} 
+                            members={clients} 
+                            provideRef={provideRef} 
+                        /> */}
 
                         {/* Listeners */}
-                        <MembersList title={'Listeners'} members={listeners} />
+                        {/* <MembersList title={'Listeners'} members={listeners} /> */}
                     </Stack>
 
                 </Box>
