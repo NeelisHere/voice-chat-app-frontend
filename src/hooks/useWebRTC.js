@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react"
 import { useStateWithCallback } from "./useStateWithCallback"
+import { socketInit } from '../api-calls/sockets.js'
 
 // const users = [
 //     { id: 1, username: 'Mukesh K' },
@@ -12,6 +13,11 @@ export const useWebRTC = (roomId, user) => {
     const audioElements = useRef({})
     const connections = useRef({})
     const localMediaStream = useRef(null)
+    const socket = useRef(null)
+
+    useEffect(() => {
+        socket.current = socketInit()
+    }, [])
 
     const provideRef = (instance, userId) => {
         audioElements.current[userId] = instance
@@ -38,8 +44,7 @@ export const useWebRTC = (roomId, user) => {
                     // localElement.volume = 0
                     localElement.srcObject = localMediaStream.current //what has to be played
                 }
-
-                
+                socket.current.emit('join', {})
             })
         })
 
