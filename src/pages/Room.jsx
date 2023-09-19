@@ -14,7 +14,8 @@ const Room = () => {
     const currentUser = useSelector((state) => state.auth.user)
     const { id: roomId } = useParams()
     const { clients, provideRef } = useWebRTC(roomId, currentUser)
-    console.log('<Room>', currentUser, clients)
+    // const clients = []
+    // console.log('<Room>', currentUser, clients)
     return (
         <>
             <Navigation />
@@ -85,13 +86,18 @@ const Room = () => {
                         {/* speakers */}
                         {
                             clients.map((client) => {
+                                console.log(client)
                                 return (
-                                    <audio 
-                                        controls 
-                                        autoPlay
-                                        ref={(instance) => provideRef(instance, client._id)}
-                                    >
-                                    </audio>
+                                    <>
+                                        <audio 
+                                            controls 
+                                            autoPlay
+                                            ref={(instance) => provideRef(instance, client._id)}
+                                        >
+                                        </audio>
+                                        {client.username}
+                                    </>
+                                    
                                 )
                             })
                         }
