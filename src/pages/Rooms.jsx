@@ -50,6 +50,7 @@ const Rooms = () => {
                                 fontSize={'xl'}
                                 fontWeight={'semibold'}
                                 color={'gray.600'}
+                                // display={{ base: 'none', md: 'none', lg: '' }}
                             >
                                 All Voice Rooms
                             </Text>
@@ -71,7 +72,11 @@ const Rooms = () => {
 
                     {/* Rooms list */}
                     <Grid 
-                        templateColumns='repeat(4, 1fr)'
+                        templateColumns={{
+                            base: 'repeat(1, 1fr)',
+                            md: 'repeat(2, 1fr)',
+                            lg: 'repeat(4, 1fr)'
+                        }}
                         gridAutoRows={'max-content'}
                         gap={5}
                         border={'2px solid red'}

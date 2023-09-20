@@ -30,7 +30,7 @@ const Navigation = () => {
             p={'15px 0'}
             w={'100%'}
             maxW={'100%'}
-            m={'0 auto'}
+            // m={'0 auto'}
             display={'flex'}
             justifyContent={'space-between'}
             alignItems={'center'}
@@ -51,7 +51,13 @@ const Navigation = () => {
                         src={'/images/react-logo-small.png'}
                         alt='logo'
                     />
-                    <Text fontSize={'2xl'} fontWeight={'bold'}>Logo</Text>
+                    <Text 
+                        display={{ base: 'none' }} 
+                        fontSize={'2xl'} 
+                        fontWeight={'bold'}
+                    >
+                        Logo
+                    </Text>
                 </Box>
             </Link>
             {

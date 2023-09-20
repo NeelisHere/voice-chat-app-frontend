@@ -1,7 +1,10 @@
 import { Box, Text, AvatarGroup, Avatar, Button } from '@chakra-ui/react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
+import { setCurrentRoom } from '../slices/roomSlice'
 
 const RoomCard = ({ room }) => {
+    const dispatch = useDispatch()
     const { topic, speakers, _id } = room
     const navigate = useNavigate()
     return (
@@ -15,6 +18,11 @@ const RoomCard = ({ room }) => {
                 shadow: 'lg'
             }}
             onClick={()=>{
+                dispatch(
+                    setCurrentRoom({
+                        topic
+                    })
+                )
                 navigate(`/rooms/${_id}`)
             }}
             cursor={'pointer'}

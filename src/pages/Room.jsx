@@ -12,10 +12,10 @@ import { useSelector } from "react-redux"
 const Room = () => {
     const navigate = useNavigate()
     const currentUser = useSelector((state) => state.auth.user)
+    const { topic } = useSelector((state) => state.room.currentRoom)
     const { id: roomId } = useParams()
-    const { clients, provideRef } = useWebRTC(roomId, currentUser)
-    // const clients = []
-    // console.log('<Room>', currentUser, clients)
+    // const { clients, provideRef } = useWebRTC(roomId, currentUser)
+    
     return (
         <>
             <Navigation />
@@ -42,8 +42,8 @@ const Room = () => {
                             display={"flex"}
                             alignItems={'center'}
                         >
-                            <Button 
-                                leftIcon={<ArrowBackIcon />} 
+                            <Button
+                                leftIcon={<ArrowBackIcon />}
                                 colorScheme="teal"
                                 onClick={() => {
                                     navigate(`/rooms`)
@@ -70,7 +70,7 @@ const Room = () => {
                         maxHeight={'500px'}
                         overflowY={'scroll'}
                     >
-                        <Box //topic
+                        <Box 
                             // border={'2px solid blue'}
                             display={'flex'}
                             alignItems={'center'}
@@ -80,11 +80,11 @@ const Room = () => {
                             fontSize={'md'}
                             fontWeight={'semibold'}
                         >
-                            JavaScript is Awesome!
+                            {topic}
                         </Box>
-                        
+
                         {/* speakers */}
-                        {
+                        {/* {
                             clients.map((client, index) => {
                                 console.log(client)
                                 return (
@@ -100,7 +100,7 @@ const Room = () => {
                                     
                                 )
                             })
-                        }
+                        } */}
 
                         {/* <MembersList 
                             title={'Speakers'} 
@@ -109,7 +109,7 @@ const Room = () => {
                         /> */}
 
                         {/* Listeners */}
-                        {/* <MembersList title={'Listeners'} members={listeners} /> */}
+                        <MembersList title={'Listeners'} members={listeners} />
                     </Stack>
 
                 </Box>

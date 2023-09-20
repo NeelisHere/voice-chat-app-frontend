@@ -4,30 +4,30 @@ import { useSelector } from 'react-redux'
 
 const UserCard = ({ type }) => {
     const { user } = useSelector((state) => state.auth)
-    const style = {
-        flexDir: type === 'nav' ? 'row-reverse' : '', 
-        infoMR: type === 'nav' ? '0' : '10px',
-        infoAI: type === 'nav' ? 'flex-end' : ''
-    }
+    // const style = {
+    //     flexDir: type === 'nav' ? 'row-reverse' : '', 
+    //     infoMR: type === 'nav' ? '0' : '10px',
+    //     infoAI: type === 'nav' ? 'flex-end' : ''
+    // }
     return (
         <Box
             // border={'2px solid red'}
             display={'flex'}
-            flexDir={style.flexDir}
+            flexDir={'row-reverse'}
+            mr={{ base: -5 }}
         >   
             <Avatar 
+                // border={'4px solid #f4f4f4'}
                 mx={'10px'}
                 size='md' 
-                // border={'4px solid #f4f4f4'}
                 name={ user.username }
                 src={ user.avatar }
             />
             <Box
-                mr={style.infoMR}
                 // border={'2px solid blue'}
-                display={'flex'}
+                display={{base: 'none', md: 'flex', lg: 'flex'}}
                 flexDir={'column'}
-                alignItems={style.infoAI}
+                alignItems={'flex-end'}
             >
                 <Text fontSize={''}>{ user.username }</Text>
                 <Text fontSize={'sm'}>{ user.email }</Text>
