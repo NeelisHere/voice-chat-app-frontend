@@ -85,10 +85,10 @@ const Room = () => {
                         
                         {/* speakers */}
                         {
-                            clients.map((client) => {
+                            clients.map((client, index) => {
                                 console.log(client)
                                 return (
-                                    <>
+                                    <div key={index}>
                                         <audio 
                                             controls 
                                             autoPlay
@@ -96,7 +96,7 @@ const Room = () => {
                                         >
                                         </audio>
                                         {client.username}
-                                    </>
+                                    </div>
                                     
                                 )
                             })

@@ -5,27 +5,16 @@ import { ACTIONS } from '../socket-actions'
 import freeice from "freeice"
 
 export const useWebRTC = (roomId, user) => {
-    console.log('<useWebRTC>', user)
+    // console.log('<useWebRTC>', user)
     const [clients, setClients] = useStateWithCallback([])
-    const audioElements = useRef({})
-    const connections = useRef({}) // storing socketId to webRTC connection mapping
-    const localMediaStream = useRef(null)
+    const audioElements = useRef({}) // user to audio HTML-tag mapping
+    const connections = useRef({}) // socketId to webRTC-connection mapping
+    const localMediaStream = useRef(null) // local audio stream
     const socket = useRef(null)
 
     useEffect(() => {
         socket.current = socketInit()
     }, [])
-
-    //**********************************************
-    // const provideRef = (instance, userId) => {
-    //     audioElements.current[userId] = instance
-    // }
-    useEffect(() => {
-        socket.current.emit('x', {success: true})
-    }, [])
-
-    //************************************************* */ 
-
     
     const addNewClients = useCallback((newClient, cb) => {
         // console.log('<newClient>', newClient)
@@ -33,7 +22,6 @@ export const useWebRTC = (roomId, user) => {
         if (lookingFor === undefined) {
             setClients((existingClients) => [...existingClients, newClient], cb)
         }
-        console.log('<after a client enters>', clients)
     }, [clients, setClients])
 
     useEffect(() => {
@@ -66,18 +54,16 @@ export const useWebRTC = (roomId, user) => {
 
     useEffect(() => {
         const handleNewPeer = async ({ peerId, createOffer, user:remoteUser }) => {
+            console.log(peerId, createOffer, remoteUser)
             // if already connected, give warning
             if (peerId in connections.current) {
                 return console.log('Peer already connected: ', peerId, user.username)
             }
-
             connections.current[peerId] = new RTCPeerConnection({
                 iceServers: freeice()
             })
-
-            // handle new ice candidate
+            // handle new ice-candidate
             connections.current[peerId].onicecandidate = (event) => {
-                console.log('ice candidate in client (before relay-ice):', event)
                 socket.current.emit(ACTIONS.RELAY_ICE, {
                     peerId,
                     icecandidate: event.candidate
@@ -119,10 +105,10 @@ export const useWebRTC = (roomId, user) => {
                     peerId, 
                     sessionDescription: offer
                 })
-
             }
         }
         socket.current.on(ACTIONS.ADD_PEER, handleNewPeer)
+        // socket.current.on(ACTIONS.ADD_PEER, (data) => console.log(data))
 
         return () => {
             socket.current.off(ACTIONS.ADD_PEER)
@@ -133,10 +119,9 @@ export const useWebRTC = (roomId, user) => {
     //handle ice-candidate
     useEffect(() => {
         socket.current.on(ACTIONS.ICE_CANDIDATE, ({peerId, icecandidate}) => {
-            console.log('[ice-candidate]', icecandidate)
-            // if (icecandidate) {
-            //     connections.current[peerId].addIceCandidate(icecandidate)
-            // }
+            if (icecandidate) {
+                connections.current[peerId].addIceCandidate(icecandidate)
+            }
             connections.current[peerId]
                 .addIceCandidate(icecandidate)
                 .catch((err) => console.log(err))
@@ -162,16 +147,16 @@ export const useWebRTC = (roomId, user) => {
                 const connection = connections.current[peerId]
                 const answer = await connection.createAnswer()
                 connection.setLocalDescription(answer)
-                socket.current.emit(ACTIONS.SESSION_SECRIPTION, {
+                socket.current.emit(ACTIONS.RELAY_SDP, {
                     peerId,
                     sessionDescription: answer
                 })
             }
         }
-        socket.current.on(ACTIONS.SESSION_SECRIPTION, handleRemoteSDP)
+        socket.current.on(ACTIONS.SESSION_DESCRIPTION, handleRemoteSDP)
 
         return () => {
-            socket.current.off(ACTIONS.SESSION_SECRIPTION)
+            socket.current.off(ACTIONS.SESSION_DESCRIPTION)
         }
 
     }, [])
@@ -182,7 +167,6 @@ export const useWebRTC = (roomId, user) => {
             if (connections.current[peerId]) {
                 connections.current[peerId].close()
             }
-
             delete connections.current[peerId]
             delete audioElements.current[peerId]
             setClients((prevClientList) => {
@@ -196,6 +180,5 @@ export const useWebRTC = (roomId, user) => {
     }, [])
     
     return { clients, provideRef }
-
 
 }
