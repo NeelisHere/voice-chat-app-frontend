@@ -13,7 +13,7 @@ export const roomSlice = createSlice({
     initialState,
     reducers: {
         setCurrentRoom: (state, action) => {
-            console.log(action.payload);
+            // console.log(action.payload);
             const { topic } = action.payload
             state.currentRoom.topic = topic
         },

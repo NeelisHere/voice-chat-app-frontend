@@ -1,20 +1,44 @@
-import { Box, Button, Avatar, Stack, Grid, Text } from "@chakra-ui/react"
-import { LogoutIcon } from "../components/Icons"
+import { Box, Button, Stack, Spinner } from "@chakra-ui/react"
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import Navigation from "../components/Navigation"
 import MembersList from "../components/MembersList"
-import { speakers, listeners } from "../data"
+// import { speakers, listeners } from "../data"
 import { useNavigate, useParams } from "react-router-dom"
-// import { useState } from "react"
 import { useWebRTC } from "../hooks/useWebRTC"
 import { useSelector } from "react-redux"
+import BackHandIcon from '@mui/icons-material/BackHand';
+import { useEffect, useState } from "react"
+import { getRoom } from "../api-calls/index.js"
+import toast from "react-hot-toast"
 
 const Room = () => {
     const navigate = useNavigate()
     const currentUser = useSelector((state) => state.auth.user)
-    const { topic } = useSelector((state) => state.room.currentRoom)
+    const [loading, setLoading] = useState(false)
+    const [room, setRoom] = useState(null)
     const { id: roomId } = useParams()
-    // const { clients, provideRef } = useWebRTC(roomId, currentUser)
+    const { clients, provideRef } = useWebRTC(roomId, currentUser)
+
+    const handleManualLeave = () => {
+        navigate(`/rooms`)
+    }
+
+    useEffect(() => {
+        const fetchRoom = async () => {
+            try {
+                setLoading(true)
+                const { data } = await getRoom(roomId)
+                // console.log('[ROOM]: ', data)
+                setRoom((prev) => data.room)
+            } catch (error) {
+                console.log(error)
+                toast.error('Error getting room information!')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchRoom()
+    }, [roomId])
     
     return (
         <>
@@ -39,21 +63,45 @@ const Room = () => {
                         borderRadius={'5px'}
                     >
                         <Box
+                            // border={'2px solid red'}
                             display={"flex"}
                             alignItems={'center'}
+                            justifyContent={'center'}
                         >
                             <Button
                                 leftIcon={<ArrowBackIcon />}
                                 colorScheme="teal"
-                                onClick={() => {
-                                    navigate(`/rooms`)
-                                }}
+                                display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
+                                onClick={handleManualLeave}
                             >
-                                All Voice Rooms
+                                Voice Rooms
                             </Button>
+                            <ArrowBackIcon 
+                                display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
+                                boxSize={6} 
+                                onClick={handleManualLeave}
+                            />
                         </Box>
-                        <Box>
-                            <Button variant={'ghost'} colorScheme="red">
+                        <Box 
+                            display={'flex'}
+                            // border={'2px solid red'}
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                        >
+                            <Button
+                                mx={'20px'}
+                                leftIcon={<BackHandIcon />}
+                                display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
+                            >
+                                Raise Hand
+                            </Button>
+                            <Button
+                                mx={'5px'}
+                                display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
+                            >
+                                <BackHandIcon />
+                            </Button>
+                            <Button onClick={handleManualLeave} variant={'ghost'} colorScheme="red">
                                 Leave Room
                             </Button>
                         </Box>
@@ -63,7 +111,6 @@ const Room = () => {
                     <Stack
                         // border={'2px solid red'}
                         borderRadius={'10px'}
-
                         bg={'white'}
                         direction={'column'}
                         px={'20px'}
@@ -80,7 +127,8 @@ const Room = () => {
                             fontSize={'md'}
                             fontWeight={'semibold'}
                         >
-                            {topic}
+                            {/* {console.log(room)} */}
+                            {loading? <Spinner /> : room?.topic}
                         </Box>
 
                         {/* speakers */}
@@ -102,16 +150,14 @@ const Room = () => {
                             })
                         } */}
 
-                        {/* <MembersList 
-                            title={'Speakers'} 
-                            members={clients} 
-                            provideRef={provideRef} 
-                        /> */}
-
                         {/* Listeners */}
-                        <MembersList title={'Listeners'} members={listeners} />
-                    </Stack>
+                        <MembersList 
+                            title={'Listeners'} 
+                            clients={clients}
+                            provideRef={provideRef}
+                        />
 
+                    </Stack>
                 </Box>
             </Box>
         </>

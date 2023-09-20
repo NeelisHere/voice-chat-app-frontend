@@ -13,7 +13,6 @@ const Rooms = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             const { data } = await getAllRooms()
-            // console.log('<>', data)
             setRooms(data.rooms)
         }
         fetchRooms()
@@ -43,14 +42,13 @@ const Rooms = () => {
                     >
                         <Box
                             // border={'2px solid red'}
-                            display={"flex"}
                             alignItems={'center'}
+                            display={{ base: 'none', md: 'none', lg: 'flex' }}
                         >
                             <Text
                                 fontSize={'xl'}
                                 fontWeight={'semibold'}
                                 color={'gray.600'}
-                                // display={{ base: 'none', md: 'none', lg: '' }}
                             >
                                 All Voice Rooms
                             </Text>
@@ -60,7 +58,7 @@ const Rooms = () => {
                                 <InputLeftElement pointerEvents='none'>
                                     <SearchIcon color='gray.600' />
                                 </InputLeftElement>
-                                <Input variant='filled' placeholder='Filled' />
+                                <Input variant='filled' placeholder='Search rooms' />
                             </InputGroup>
 
                         </Box>
@@ -72,14 +70,15 @@ const Rooms = () => {
 
                     {/* Rooms list */}
                     <Grid 
+                        // border={'2px solid red'}
                         templateColumns={{
                             base: 'repeat(1, 1fr)',
+                            sm: 'repeat(2, 1fr)',
                             md: 'repeat(2, 1fr)',
                             lg: 'repeat(4, 1fr)'
                         }}
                         gridAutoRows={'max-content'}
                         gap={5}
-                        border={'2px solid red'}
                         overflowY={'scroll'}
                         height={'500px'}
                         sx={

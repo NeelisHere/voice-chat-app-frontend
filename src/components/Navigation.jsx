@@ -14,7 +14,7 @@ const Navigation = () => {
     const logout = async () => {
         try {
             const { data } = await logoutUser()
-            console.log(data)
+            // console.log(data)
             dispatch(setAuth(data))
         } catch (error) {
             console.log(error)
@@ -52,7 +52,7 @@ const Navigation = () => {
                         alt='logo'
                     />
                     <Text 
-                        display={{ base: 'none' }} 
+                        display={{ base: 'none', sm: 'flex', md: 'flex', lg: 'flex' }} 
                         fontSize={'2xl'} 
                         fontWeight={'bold'}
                     >

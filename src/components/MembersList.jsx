@@ -1,7 +1,7 @@
 import { Box, Grid, Text } from "@chakra-ui/react"
 import Member from "./Member";
 
-const MembersList = ({ title, members, provideRef }) => {
+const MembersList = ({ title, clients, provideRef }) => {
     return (
         <Box>
             <Text fontSize={'xl'} fontWeight={'semibold'} ml={'20px'}>
@@ -19,11 +19,15 @@ const MembersList = ({ title, members, provideRef }) => {
                 my={'20px'}
             >
                 {
-                    members.map(({ id, username, avatar }, index) => {
+                    clients.map((client, index) => {
+                        // console.log('[members-list]: ', client)
                         return (
-                            <Member key={index}
-                                username={username}
-                                avatar={avatar}
+                            <Member 
+                                key={index}
+                                id={client._id}
+                                username={client.username}
+                                avatar={client.avatar}
+                                provideRef={provideRef}
                             />
                         )
                     })

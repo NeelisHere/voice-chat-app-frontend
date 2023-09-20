@@ -3,7 +3,7 @@ import MicOffIcon from '@mui/icons-material/MicOff';
 import { Box, Text, Avatar, AvatarBadge  } from "@chakra-ui/react"
 import { useState } from 'react';
 
-const Member = ({ username, avatar }) => {
+const Member = ({ id, username, avatar, provideRef }) => {
     const [mute, setMute] = useState(false)
     const [speaking, setSpeaking] = useState(false)
     const micStyle = { 
@@ -39,11 +39,17 @@ const Member = ({ username, avatar }) => {
                     }
                 </AvatarBadge>
             </Avatar>
+            <audio 
+                controls 
+                autoPlay
+                ref={(instance) => provideRef(instance, id)}
+            >
+            </audio>
 
             <Text fontSize={'sm'}>
                 {username}
             </Text>
-
+            
         </Box>
     )
 }

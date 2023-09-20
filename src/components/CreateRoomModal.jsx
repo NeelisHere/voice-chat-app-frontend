@@ -1,4 +1,4 @@
-import {Modal,ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useDisclosure, Input,  Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import {Modal, Box, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useDisclosure, Input,  Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { createRoom as create } from '../api-calls/index.js'
@@ -18,7 +18,7 @@ const CreateRoomModal = () => {
         setLoading(true)
         try {
             const { data } = await create({ topic, roomType })
-            console.log(data)
+            // console.log(data)
             toast.success('Room created successfully!')
             navigate(`/rooms/${data.room._id}`)
         } catch (error) {
@@ -38,9 +38,23 @@ const CreateRoomModal = () => {
                 colorScheme="teal"
                 leftIcon={<AddIcon />}
                 onClick={onOpen}
+                display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
             >
                 Create a Room
             </Button>
+
+            <Box
+                // border={'2px solid red'}
+                w={'100%'}
+                h={'100%'}
+                cursor={'pointer'}
+                display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
+                justifyContent={'center'}
+                alignItems={'center'}
+                onClick={onOpen}
+            >
+                <AddIcon />
+            </Box>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />

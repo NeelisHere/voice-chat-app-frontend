@@ -23,6 +23,8 @@ export const createRoom = async (data) => api.post('/api/rooms', data)
 
 export const getAllRooms = async () => api.get('/api/rooms')
 
+export const getRoom = async (roomId) => api.get(`/api/rooms/${roomId}`)
+
 
 //interceptors
 api.interceptors.response.use(
@@ -37,7 +39,6 @@ api.interceptors.response.use(
                 const refReqURL = `${API_BASE_URL}/api/refresh`
                 await axios.get(refReqURL, { withCredentials: true })
                 return api.request(originalReq)
-
             } catch (error) {
                 console.log(error.message)
             }

@@ -25,7 +25,7 @@ const UserCard = ({ type }) => {
             />
             <Box
                 // border={'2px solid blue'}
-                display={{base: 'none', md: 'flex', lg: 'flex'}}
+                display={{base: 'none', sm: 'flex', md: 'flex', lg: 'flex'}}
                 flexDir={'column'}
                 alignItems={'flex-end'}
             >

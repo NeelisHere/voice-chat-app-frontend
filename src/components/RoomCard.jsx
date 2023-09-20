@@ -28,7 +28,8 @@ const RoomCard = ({ room }) => {
             cursor={'pointer'}
         >
             <Box
-
+                // border={'2px solid blue'}
+                fontSize={{ base: 'sm', sm: 'sm', md: 'md', lg: 'md' }}
             >
                 <Text>{topic}</Text>
             </Box>

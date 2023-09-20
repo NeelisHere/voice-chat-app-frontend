@@ -54,7 +54,7 @@ export const useWebRTC = (roomId, user) => {
 
     useEffect(() => {
         const handleNewPeer = async ({ peerId, createOffer, user:remoteUser }) => {
-            console.log(peerId, createOffer, remoteUser)
+            // console.log(peerId, createOffer, remoteUser)
             // if already connected, give warning
             if (peerId in connections.current) {
                 return console.log('Peer already connected: ', peerId, user.username)
