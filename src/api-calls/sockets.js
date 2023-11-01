@@ -7,8 +7,8 @@ export const socketInit = () => {
         timeout: 10000,
         transports: ['websocket'],
     }
-    const backendURL = 'http://localhost:8000'
-    // process.env.REACT_APP_API_BASE_URL
+    // const backendURL = 'http://localhost:8000'
+    const backendURL = process.env.REACT_APP_API_BASE_URL
     return io(backendURL, options)
 }
 

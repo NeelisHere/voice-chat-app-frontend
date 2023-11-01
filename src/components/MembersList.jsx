@@ -1,7 +1,7 @@
 import { Box, Grid, Text } from "@chakra-ui/react"
 import Member from "./Member";
 
-const MembersList = ({ title, clients, provideRef }) => {
+const MembersList = ({ title, clients, provideRef, handleMute }) => {
     return (
         <Box>
             <Text fontSize={'xl'} fontWeight={'semibold'} ml={'20px'}>
@@ -24,10 +24,9 @@ const MembersList = ({ title, clients, provideRef }) => {
                         return (
                             <Member 
                                 key={index}
-                                id={client._id}
-                                username={client.username}
-                                avatar={client.avatar}
+                                client={client}
                                 provideRef={provideRef}
+                                handleMute={handleMute}
                             />
                         )
                     })

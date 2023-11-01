@@ -1,16 +1,31 @@
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import { Box, Text, Avatar, AvatarBadge  } from "@chakra-ui/react"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const Member = ({ id, username, avatar, provideRef }) => {
-    const [mute, setMute] = useState(false)
+const Member = ({ client, provideRef, handleMute }) => {
+    console.log('inside Memeber.jsx: ', client)
+    const { _id: id, username, avatar, muted } = client
+    const [mute, setMute] = useState(true)
+    const currentUser = useSelector((state) => state.auth.user)
     const [speaking, setSpeaking] = useState(false)
+    
     const micStyle = { 
         width: '16px', 
         height: '16px', 
         color: 'black' 
     }
+
+    useEffect(() => {
+        handleMute(mute, currentUser._id)
+    }, [currentUser._id, handleMute, mute])
+
+    const handleMuteClick = (clientId) => {
+        if (clientId !== currentUser._id) return;
+        setMute((prevMuteState) => !prevMuteState)
+    }
+
     return (
         <Box
             // border={'2px solid red'}
@@ -32,15 +47,15 @@ const Member = ({ id, username, avatar, provideRef }) => {
                     cursor={'pointer'}
                     boxSize={'28px'}
                     bg={'#dedede'}
-                    onClick={() => setMute(!mute)}
+                    onClick={() => handleMuteClick(id)}
                 >
                     {
-                        mute ? <MicOffIcon sx={micStyle} /> : <MicIcon sx={micStyle} />
+                        muted ? <MicOffIcon sx={micStyle} /> : <MicIcon sx={micStyle} />
                     }
                 </AvatarBadge>
             </Avatar>
             <audio 
-                controls 
+                // controls 
                 autoPlay
                 ref={(instance) => provideRef(instance, id)}
             >

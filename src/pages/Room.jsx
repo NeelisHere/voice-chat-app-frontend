@@ -17,7 +17,7 @@ const Room = () => {
     const [loading, setLoading] = useState(false)
     const [room, setRoom] = useState(null)
     const { id: roomId } = useParams()
-    const { clients, provideRef } = useWebRTC(roomId, currentUser)
+    const { clients, provideRef, handleMute } = useWebRTC(roomId, currentUser)
 
     const handleManualLeave = () => {
         navigate(`/rooms`)
@@ -131,30 +131,12 @@ const Room = () => {
                             {loading? <Spinner /> : room?.topic}
                         </Box>
 
-                        {/* speakers */}
-                        {/* {
-                            clients.map((client, index) => {
-                                console.log(client)
-                                return (
-                                    <div key={index}>
-                                        <audio 
-                                            controls 
-                                            autoPlay
-                                            ref={(instance) => provideRef(instance, client._id)}
-                                        >
-                                        </audio>
-                                        {client.username}
-                                    </div>
-                                    
-                                )
-                            })
-                        } */}
-
-                        {/* Listeners */}
+                        {/* Members */}
                         <MembersList 
                             title={'Listeners'} 
                             clients={clients}
                             provideRef={provideRef}
+                            handleMute={handleMute}
                         />
 
                     </Stack>
