@@ -25,6 +25,9 @@ export const getAllRooms = async () => api.get('/api/rooms')
 
 export const getRoom = async (roomId) => api.get(`/api/rooms/${roomId}`)
 
+export const editRoom = async (roomId, payload) => api.put(`/api/rooms/${roomId}`, payload)
+
+export const deleteRoomAPI = async (roomId) => api.delete(`/api/rooms/${roomId}`)
 
 //interceptors
 api.interceptors.response.use(

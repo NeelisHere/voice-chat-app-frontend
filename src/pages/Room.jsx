@@ -2,14 +2,14 @@ import { Box, Button, Stack, Spinner } from "@chakra-ui/react"
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import Navigation from "../components/Navigation"
 import MembersList from "../components/MembersList"
-// import { speakers, listeners } from "../data"
 import { useNavigate, useParams } from "react-router-dom"
 import { useWebRTC } from "../hooks/useWebRTC"
 import { useSelector } from "react-redux"
-import BackHandIcon from '@mui/icons-material/BackHand';
-import { useEffect, useState } from "react"
-import { getRoom } from "../api-calls/index.js"
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useCallback, useEffect, useState } from "react"
+import { getRoom, deleteRoomAPI } from "../api-calls/index.js"
 import toast from "react-hot-toast"
+import EditRoomModal from "../components/EditRoomModal"
 
 const Room = () => {
     const navigate = useNavigate()
@@ -23,22 +23,37 @@ const Room = () => {
         navigate(`/rooms`)
     }
 
-    useEffect(() => {
-        const fetchRoom = async () => {
-            try {
-                setLoading(true)
-                const { data } = await getRoom(roomId)
-                // console.log('[ROOM]: ', data)
-                setRoom((prev) => data.room)
-            } catch (error) {
-                console.log(error)
-                toast.error('Error getting room information!')
-            } finally {
-                setLoading(false)
-            }
+    const deleteRoom = async(roomId) => {
+        try {
+            setLoading(true)
+            await deleteRoomAPI(roomId)
+            toast.success('Room deleted successfully!')
+        } catch (error) {
+            console.log(error)
+            toast.error('Error deleting room!')
+        } finally {
+            setLoading(false)
+            navigate('/rooms')
         }
-        fetchRoom()
+    }
+
+    const fetchRoom = useCallback(async () => {
+        try {
+            setLoading(true)
+            const { data } = await getRoom(roomId)
+            // console.log('[ROOM]: ', data)
+            setRoom((prev) => data.room)
+        } catch (error) {
+            console.log(error)
+            toast.error('Error getting room information!')
+        } finally {
+            setLoading(false)
+        }
     }, [roomId])
+
+    useEffect(() => {
+        fetchRoom()
+    }, [fetchRoom, roomId])
     
     return (
         <>
@@ -82,29 +97,28 @@ const Room = () => {
                                 onClick={handleManualLeave}
                             />
                         </Box>
-                        <Box 
-                            display={'flex'}
-                            // border={'2px solid red'}
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                        >
-                            <Button
-                                mx={'20px'}
-                                leftIcon={<BackHandIcon />}
-                                display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
+                        {
+                            currentUser?._id === room?.ownerId 
+                            &&
+                            <Box 
+                                display={'flex'}
+                                // border={'2px solid red'}
+                                alignItems={'center'}
+                                justifyContent={'center'}
+                                gap={2}
                             >
-                                Raise Hand
-                            </Button>
-                            <Button
-                                mx={'5px'}
-                                display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
-                            >
-                                <BackHandIcon />
-                            </Button>
-                            <Button onClick={handleManualLeave} variant={'ghost'} colorScheme="red">
-                                Leave Room
-                            </Button>
-                        </Box>
+                                <EditRoomModal fetchRoom={fetchRoom}>
+                                    Edit
+                                </EditRoomModal>
+                                <Button 
+                                    onClick={() => deleteRoom(roomId)} 
+                                    leftIcon={<DeleteIcon />}
+                                    isLoading={loading}
+                                >
+                                    Delete
+                                </Button>
+                            </Box>
+                        }
                     </Box>
 
                     {/* Chats */}
