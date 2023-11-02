@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const Member = ({ client, provideRef, handleMute }) => {
-    console.log('inside Memeber.jsx: ', client)
+    // console.log('inside Memeber.jsx: ', client)
     const { _id: id, username, avatar, muted } = client
     const [mute, setMute] = useState(true)
     const currentUser = useSelector((state) => state.auth.user)
-    const [speaking, setSpeaking] = useState(false)
+    // const [speaking, setSpeaking] = useState(false)
     
     const micStyle = { 
         width: '16px', 
@@ -19,7 +19,7 @@ const Member = ({ client, provideRef, handleMute }) => {
 
     useEffect(() => {
         handleMute(mute, currentUser._id)
-    }, [currentUser._id, handleMute, mute])
+    }, [mute])
 
     const handleMuteClick = (clientId) => {
         if (clientId !== currentUser._id) return;
@@ -38,7 +38,7 @@ const Member = ({ client, provideRef, handleMute }) => {
 
             <Avatar
                 size={'lg'}
-                border={`4px solid ${speaking ? '#4FD1C5' : '#DEDEDE'}`}
+                border={`4px solid #dedede`}
                 name={username}
                 src={avatar}
             > 

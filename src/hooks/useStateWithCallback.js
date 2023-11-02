@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react"
+
 export const useStateWithCallback = (intialState) => {
     const [state, setState] = useState(intialState)
     const cbRef = useRef()
@@ -11,6 +12,7 @@ export const useStateWithCallback = (intialState) => {
 
     useEffect(() => {
         if (cbRef.current) {
+            // console.log('>>', state)
             cbRef.current(state)
             cbRef.current = null
         }
