@@ -68,6 +68,8 @@ const EditRoomModal = ({ children, fetchRoom: fetchRoomAPICallFromParent }) => {
                             <Input 
                                 variant={'filled'} 
                                 value={topic}
+                                mt={2}
+                                mb={4}
                                 onChange={(e) => setTopic(e.target.value)}
                             />
                         }

@@ -213,6 +213,7 @@ export const useWebRTC = (roomId, user) => {
             if (connections.current[peerId]) {
                 connections.current[peerId].close();
             }
+
             delete connections.current[peerId];
             delete audioElements.current[peerId];
             setClients((list) => list.filter((c) => c._id !== userId));
