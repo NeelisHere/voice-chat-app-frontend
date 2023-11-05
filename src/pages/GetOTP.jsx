@@ -21,7 +21,6 @@ const GetOTP = ({ nextURL }) => {
         setLoading(true)
         try {
             const { data } = await verifyOTP({ email, OTP: ref.current.value, hash, expires })
-            // console.log(1, data)
             dispatch(setAuth(data))
             toast.success('OTP verified successfully!')
         } catch (error) {

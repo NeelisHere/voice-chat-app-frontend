@@ -16,21 +16,22 @@ const UserCard = ({ type }) => {
             flexDir={'row-reverse'}
             mr={{ base: -5 }}
         >   
+            { console.log(user.avatar) }
             <Avatar 
                 // border={'4px solid #f4f4f4'}
                 mx={'10px'}
                 size='md' 
-                name={ user.username }
-                src={ user.avatar }
+                name={ user?.username }
+                src={ user?.avatar }
             />
             <Box
                 // border={'2px solid blue'}
-                display={{base: 'none', sm: 'flex', md: 'flex', lg: 'flex'}}
+                display={{ base: 'none', sm: 'flex', md: 'flex', lg: 'flex' }}
                 flexDir={'column'}
                 alignItems={'flex-end'}
             >
-                <Text fontSize={''}>{ user.username }</Text>
-                <Text fontSize={'sm'}>{ user.email }</Text>
+                <Text fontSize={''}>{ user?.username }</Text>
+                <Text fontSize={'sm'}>{ user?.email }</Text>
             </Box>
         </Box>
   )

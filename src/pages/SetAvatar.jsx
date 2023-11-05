@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { activate } from "../api-calls/index.js";
 import toast from "react-hot-toast";
 import { setAuth } from "../slices/AuthSlice";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { storage } from "../api-calls/firebase.js";
+import { v4 } from 'uuid'
 
 // const defaultImage = 'https://bit.ly/broken-link'
 
@@ -16,7 +19,8 @@ const SetAvatar = ({ nextURL }) => {
     const dispatch = useDispatch()
     const { username, avatar } = useSelector((state) => state.activate)
     const navigate = useNavigate()
-    const [avatarImageFile, setAvatarImageFile] = useState('')
+    const [avatarImageFile, setAvatarImageFile] = useState(null)
+    const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(false)
     const [mounted, setMounted] = useState(true)
 
@@ -25,8 +29,8 @@ const SetAvatar = ({ nextURL }) => {
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0])
         reader.onloadend = () => {
-            setAvatarImageFile(reader.result)
-            dispatch(setAvatar(reader.result))
+            setImage(reader.result)
+            setAvatarImageFile(e.target.files[0])
         }
     }
 
@@ -39,11 +43,16 @@ const SetAvatar = ({ nextURL }) => {
     const handleSubmit = async () => {
         setLoading(true)
         try {
-            const { data } = await activate({ username, avatar })
-            // console.log(data)
+            const imageId = v4()
+            const fileStorageRef = ref(storage, `image/image-${imageId}`)
+            // const blob = await fetch(image).then((res) => res.blob());
+            await uploadBytes(fileStorageRef, avatarImageFile)
+            const url = await getDownloadURL(fileStorageRef)
+            const { data } = await activate({ username, avatar: url })
             if(data.auth) {
                 if (mounted) {
                     dispatch(setAuth(data))
+                    // dispatch(setAvatar(url))
                 }
             }
             navigate(nextURL)
@@ -96,17 +105,20 @@ const SetAvatar = ({ nextURL }) => {
                                     border={'4px solid white'}
                                     size='xl' 
                                     name={username}  
-                                    src={avatarImageFile}
+                                    src={image}
                                 >
                                     {
-                                        avatarImageFile  &&
+                                        avatarImageFile && image &&
                                         <AvatarBadge 
                                             borderWidth={'4px'} 
                                             cursor={'pointer'} 
                                             // borderColor={'black'} 
                                             boxSize={'28px'} 
                                             bg={'#dedede'}
-                                            onClick={() => setAvatarImageFile('')}
+                                            onClick={() => {
+                                                setAvatarImageFile(null)
+                                                setImage(null)
+                                            }}
                                         >
                                             <CloseIcon w={'8px'} h={'8px'} />
                                         </AvatarBadge>
