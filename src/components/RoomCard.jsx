@@ -2,11 +2,17 @@ import { Box, Text, AvatarGroup, Avatar, Button } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { setCurrentRoom } from '../slices/roomSlice'
+import { useWebRTC } from "../hooks/useWebRTC"
+import { useSelector } from "react-redux"
 
 const RoomCard = ({ room }) => {
     const dispatch = useDispatch()
-    const { topic, speakers, _id } = room
     const navigate = useNavigate()
+
+    const currentUser = useSelector((state) => state.auth.user)
+    const { topic, speakers, _id } = room
+    const { clients } = useWebRTC(_id, currentUser)
+    
     return (
         <Box
             // border={'2px solid blue'}
@@ -42,24 +48,29 @@ const RoomCard = ({ room }) => {
             >
                 <AvatarGroup size='md' max={3}>
                     {
-                        speakers.map(({username, avatar}, index) => {
+                        clients?.map(({username, avatar}, index) => {
                             return(
                                 <Avatar 
                                     key={index}
                                     name={username} 
-                                    src={`${process.env.REACT_APP_API_BASE_URL}${avatar}`}
+                                    src={avatar}
                                 />
                             )
                         })
                     }
+                    {
+                        // console.log('---', clients)
+                    }
                 </AvatarGroup>
             </Box>
 
-            <Box>
-                <Button w={'100%'} size={'sm'}>
-                    See Members
-                </Button>
-            </Box>
+            {
+                // <Box>
+                //     <Button w={'100%'} size={'sm'}>
+                //         See Members
+                //     </Button>
+                // </Box> 
+            }
 
         </Box>
     )
