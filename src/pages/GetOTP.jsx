@@ -15,7 +15,7 @@ const GetOTP = ({ nextURL }) => {
     const ref = useRef()
     const navigate = useNavigate()
     const [hover, setHover] = useState(false)
-    const [loading, setLoading] = useState(false) 
+    const [loading, setLoading] = useState(false)
 
     const handleVerify = async () => {
         setLoading(true)
@@ -67,8 +67,8 @@ const GetOTP = ({ nextURL }) => {
                     >
                         Verify
                     </Button>
-                    <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}> 
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.
+                    <Text fontSize={'xs'} lineHeight={'shorter'} color={'#59515e'}>
+                        Please enter your login credentials to access your account. For assistance, contact our support team at npaulxy@gmail.com                    
                     </Text>
                 </Card>
             </Box>

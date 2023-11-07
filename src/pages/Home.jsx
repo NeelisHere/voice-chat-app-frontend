@@ -17,12 +17,9 @@ const Home = () => {
                 display={'flex'}
                 alignItems={'center'}
             >
-                <Card headingText={'Welcome Text'}>
+                <Card headingText={'Welcome'}>
                     <Box>
-                        There are many benefits to a joint design and development system. Not only
-                        does it bring benefits to the design team, but it also brings benefits to
-                        engineering teams. It makes sure that our experiences have a consistent look
-                        and feel, not just in our design specs, but in production.
+                    Welcome to our voice chat application, a gateway to meaningful conversations. Whether it's catching up with friends or collaborating on projects, our platform offers seamless and crystal-clear communication. Join us in this auditory journey of connection and camaraderie. Your voice matters here.
                     </Box>
                     <Button
                         onClick={() => navigate('/get-phone-email')}

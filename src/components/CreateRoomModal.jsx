@@ -1,4 +1,4 @@
-import {Modal, Box, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useDisclosure, Input,  Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { Modal, Box, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useDisclosure, Input, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { createRoom as create } from '../api-calls/index.js'
@@ -63,19 +63,19 @@ const CreateRoomModal = () => {
                     <ModalCloseButton />
                     <ModalBody>
                         <Stack direction={'column'} gap={8}>
-                            <Input 
-                                variant='filled' 
-                                placeholder='Enter Topic' 
+                            <Input
+                                variant='filled'
+                                placeholder='Enter Topic'
                                 value={topic}
                                 onChange={(e) => {
                                     setTopic(e.target.value)
                                 }}
                             />
-                            <RadioGroup 
-                                onChange={setRoomType} 
-                                value={roomType} 
+                            <RadioGroup
+                                onChange={setRoomType}
+                                value={roomType}
                                 px={'10px'}
-                                // border={'2px solid red'}
+                            // border={'2px solid red'}
                             >
                                 <Text>Which Room type do you want to choose?</Text>
                                 <Stack direction={'column'} p={'15px'}>
@@ -85,7 +85,7 @@ const CreateRoomModal = () => {
                                 </Stack>
                             </RadioGroup>
                             <Text fontSize={'xs'} color={'#333'} lineHeight={'shorter'}>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium enim inventore quia. Alias debitis illo placeat obcaecati veritatis fugit cum!
+                                Please enter your login credentials to access your account. For assistance, contact our support team at npaulxy@gmail.com                          
                             </Text>
                         </Stack>
                     </ModalBody>

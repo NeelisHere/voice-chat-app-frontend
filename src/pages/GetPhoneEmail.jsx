@@ -64,7 +64,7 @@ const GetPhoneEmail = ({ nextURL }) => {
                         lineHeight={'shorter'}
                         color={'#59515e'}
                     >
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse, recusandae laboriosam ipsa quibusdam eveniet maiores culpa praesentium sit aperiam.
+                        Please enter your login credentials to access your account. For assistance, contact our support team at npaulxy@gmail.com                    
                     </Text>
                 </Card>
             </Box>

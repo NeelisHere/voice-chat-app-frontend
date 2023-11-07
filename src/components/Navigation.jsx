@@ -56,7 +56,7 @@ const Navigation = () => {
                         fontSize={'2xl'} 
                         fontWeight={'bold'}
                     >
-                        Logo
+                        Voice Chat App
                     </Text>
                 </Box>
             </Link>
