@@ -1,5 +1,5 @@
 # Voice Chat Application
-Welcome to our voice chat application, a gateway to meaningful conversations. Whether it's catching up with friends or collaborating on projects, our platform offers seamless and crystal-clear communication. Join us in this auditory journey of connection and camaraderie. Your voice matters here
+Welcome to our voice chat application, a gateway to meaningful conversations. Whether it's catching up with friends or collaborating on projects, our platform offers seamless and crystal-clear communication. Join us in this auditory journey of connection and camaraderie. Your voice matters here.
 
 ## Tools
 - **React** - Frontend.
