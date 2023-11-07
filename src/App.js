@@ -14,53 +14,54 @@ import { Toaster } from 'react-hot-toast';
 import useLoadingWithRefresh from './hooks/useLoadingWithRefresh';
 import Loader from './pages/Loader';
 import Room from './pages/Room';
+import SpeakersProvider from './slices/speakersProvider.js';
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: 
+		element:
 			<GuestRoute>
 				<Home />
 			</GuestRoute>,
 	},
 	{
 		path: "/get-phone-email",
-		element: 
+		element:
 			<GuestRoute>
 				<GetPhoneEmail nextURL={'/get-otp'} />
 			</GuestRoute>,
 	},
 	{
 		path: "/get-otp",
-		element: 
+		element:
 			<GuestRoute>
 				<GetOTP nextURL={'/set-username'} />
 			</GuestRoute>,
 	},
 	{
 		path: "/set-username",
-		element: 
+		element:
 			<SemiProtectedRoute>
 				<SetUsername nextURL={'/set-avatar'} />
 			</SemiProtectedRoute>
 	},
 	{
 		path: "/set-avatar",
-		element: 
+		element:
 			<SemiProtectedRoute>
 				<SetAvatar nextURL={'/rooms'} />
 			</SemiProtectedRoute>
 	},
 	{
 		path: "/rooms",
-		element: 
+		element:
 			<ProtectedRoute>
 				<Rooms />
 			</ProtectedRoute>
 	},
 	{
 		path: '/rooms/:id',
-		element: 
+		element:
 			<ProtectedRoute>
 				<Room />
 			</ProtectedRoute>
@@ -73,15 +74,17 @@ const App = () => {
 	// const loading = false;
 	return (
 		<ChakraProvider>
-			{
-				loading?
-				<Loader size={'xl'}/>
-				:
-				<>
-					<RouterProvider router={router} /> 
-					<Toaster />
-				</>
-			}
+			<SpeakersProvider>
+				{
+					loading ?
+						<Loader size={'xl'} />
+						:
+						<>
+							<RouterProvider router={router} />
+							<Toaster />
+						</>
+				}
+			</SpeakersProvider>
 		</ChakraProvider>
 	);
 }

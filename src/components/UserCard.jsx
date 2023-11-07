@@ -16,7 +16,7 @@ const UserCard = ({ type }) => {
             flexDir={'row-reverse'}
             mr={{ base: -5 }}
         >   
-            { console.log(user.avatar) }
+            {/* { console.log(user.avatar) } */}
             <Avatar 
                 // border={'4px solid #f4f4f4'}
                 mx={'10px'}

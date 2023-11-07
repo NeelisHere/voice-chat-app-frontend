@@ -10,14 +10,23 @@ import { useCallback, useEffect, useState } from "react"
 import { getRoom, deleteRoomAPI } from "../api-calls/index.js"
 import toast from "react-hot-toast"
 import EditRoomModal from "../components/EditRoomModal"
+// import { useSpeakers } from "../slices/speakersProvider.js"
 
 const Room = () => {
     const navigate = useNavigate()
+    // const { setSpeakers, setRoomId } = useSpeakers()
     const currentUser = useSelector((state) => state.auth.user)
     const [loading, setLoading] = useState(false)
     const [room, setRoom] = useState(null)
     const { id: roomId } = useParams()
     const { clients, provideRef, handleMute } = useWebRTC(roomId, currentUser)
+
+    // useEffect(() => {
+    //     console.log(clients);
+    //     setSpeakers(clients)
+    //     setRoomId(roomId)
+    // }, [clients, roomId, setRoomId, setSpeakers])
+
 
     const handleManualLeave = () => {
         navigate(`/rooms`)
