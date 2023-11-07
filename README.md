@@ -27,6 +27,9 @@ Welcome to our voice chat application, a gateway to meaningful conversations. Wh
 ## Screenshots of the Working Application
 
 ![image](https://github.com/NeelisHere/voice-chat-app-frontend/assets/87941703/56649c74-6593-481a-8505-61bd7de07eaf)
-![image](https://github.com/NeelisHere/voice-chat-app-frontend/assets/87941703/25b0d632-fe81-4133-ae0d-c20bf97a3b8b)
+![image](https://github.com/NeelisHere/voice-chat-app-frontend/assets/87941703/3954d479-2f71-48fd-b278-a54888d93c4c)
 ![image](https://github.com/NeelisHere/voice-chat-app-frontend/assets/87941703/47938225-6de4-4bad-910d-335b0c41ad6f)
+![image](https://github.com/NeelisHere/voice-chat-app-frontend/assets/87941703/d7d4b62a-600a-4d4a-b7db-2d53273bcf35)
+![image](https://github.com/NeelisHere/voice-chat-app-frontend/assets/87941703/59bb2e7b-9a79-4029-a832-8693516f684d)
+
 
