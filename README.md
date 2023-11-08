@@ -7,11 +7,11 @@ Welcome to our voice chat application, a gateway to meaningful conversations. Wh
 - **Axios** - Data fetching from the API and intercepting requests.
 - **Redux Toolkit** & **Context API** - State management.
 - **Chakra UI** & **MUI** - Styling and icons.
-- **Node.js** & **Express**  - Profile-image uploads.
+- **Node.js** & **Express**  - Building API.
 - **MongoDB** - NoSQL database.
 - **Mongoose** - ODM for interacting with database.
-- **WebRTC** - Connecting browsers for sending audio from one client to another in real-time.
-- **Socket.io** - Joining/leaving room in real-time, sending/receiving information for making the WebRTC connection, mute/unmute users.
+- **WebRTC** - Connecting browsers for peer-to-peer audio communication in real-time.
+- **Socket.io** - Joining/leaving room, sending/receiving information for making the WebRTC connection, mute/unmute users in real-time.
 - **Nodemailer** - Sending OTP via emails.
 - **Ethereal** - Dummy SMTP service.
 - **Firebase Storage** - Profile image uploads.
